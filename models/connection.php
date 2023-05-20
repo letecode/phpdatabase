@@ -1,15 +1,19 @@
 <?php
+    class Connexion {
 
-    $dbname = 'letecodedatabase';
-    $dbhost = 'localhost';
-    $dbuser = "root";
-    $dbpassword = "root";
-    $port = "8889";
+        public $connection;
 
-    $db = new PDO('mysql:host='.$dbhost.';dbname='.$dbname, $dbuser, $dbpassword);
+        function __construct()
+        {
+            include_once __DIR__. '/constants.php';
 
-    if($db == null ) {
-        die("erreeur de connxion à la base de donnees");
+            $this->connection = new PDO('mysql:host='.DB_HOST.';dbname='.DB_NAME, DB_USER, DB_PASSWORD);
+
+            if($this->connection == null ) {
+                die("erreeur de connxion à la base de donnees");
+            }
+        }
+
     }
 
 ?>

@@ -4,18 +4,13 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
     if(isset($_POST['nom']) and isset($_POST['couleur'])){
 
         // connexion
-        include_once '../models/connection.php';
+        include_once 'FruitController.php';
 
-        $nom = $_POST['nom'];
-        $couleur = $_POST['couleur'];
+        $controller = new FruitController();
+        $created = $controller->createFruit($_POST['nom'], $_POST['couleur']);
 
-        $query = "INSERT INTO fruits (nom, couleur) VALUES (:nom, :couleur);";
-        $stmt = $db->prepare($query);
-        $stmt->bindParam(':nom', $nom);
-        $stmt->bindParam(':couleur', $couleur);
-
-        if($stmt->execute()) {
-            echo "Enregistrement effectué";
+        if($created) {
+            header('Location: ../index.php');
         } else {
             echo "Echec";
         }
